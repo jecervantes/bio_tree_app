@@ -1,3 +1,5 @@
+import 'package:bio_tree_app/next_page.dart';
+import 'package:bio_tree_app/third_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -56,6 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
       _counter++;
+      print("The counter has been increased to " + _counter.toString());
     });
   }
 
@@ -94,10 +97,10 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              "Hello professor! This is my first change to the app.",
+              "Screen #1",
             ),
             Text(
-              'You have pushed the button this many times:',
+              'Press button to add to value:',
             ),
             Text(
               '$_counter',
@@ -106,11 +109,39 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      floatingActionButton: Stack(
+        children: [
+          Positioned(
+            right:10,
+            bottom: 30,
+            child: FloatingActionButton(
+              heroTag: 'next page',
+              onPressed: () {
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SecondPage(title: 'Second page',)),
+                );
+                  },
+              child: Icon(
+                Icons.arrow_right,
+                size: 40,
+              ),
+            ),
+          ),
+          Positioned(
+              right: 150,
+              bottom: 200,
+              child: FloatingActionButton(
+                heroTag: 'add increment',
+                onPressed: _incrementCounter,
+                child: Icon(
+                  Icons.add,
+                  size: 40,
+                ),
+              )
+          )
+        ],
+      ),
     );
   }
 }
